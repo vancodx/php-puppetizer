@@ -1,0 +1,49 @@
+{
+  "name": "vancodx/php-puppetizer",
+  "description": "VanCodX PHP Puppetizer",
+  "keywords": [
+    "vancodx",
+    "puppet",
+    "mock",
+    "stub"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ivan Chistyakov",
+      "email": "vancodx@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VanCodX\\Puppetizer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^8.3"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "vancodx/php-coding-style": "^1.2.0",
+    "vancodx/php-testing": "^1.2.0"
+  },
+  "scripts": {
+    "test": [
+      "php-cs-fixer fix",
+      "phpcs -p",
+      "phpstan analyze",
+      "phpunit"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+         name="Custom Rule Set">
+
+  <file>.</file>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <arg name="extensions" value="php"/>
+
+  <rule ref="vendor/vancodx/php-coding-style/phpcs-ruleset"/>
+
+</ruleset>

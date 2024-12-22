@@ -1,0 +1,8 @@
+includes:
+  - vendor/vancodx/php-testing/phpstan-extension/extension.php
+
+parameters:
+  level: 10
+  paths:
+    - src
+    - tests
