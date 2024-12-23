@@ -4,20 +4,18 @@ namespace VanCodX\Puppetizer\Puppet;
 
 use InvalidArgumentException;
 use UnexpectedValueException;
+use VanCodX\Puppetizer\Puppet\Traits\RegularCallTrait;
+use VanCodX\Puppetizer\Puppet\Traits\StaticCallTrait;
 
 /**
  * @template T of object
  */
 class Builder
 {
-    /**
-     * @var class-string<T>
-     */
+    /** @var class-string<T> */
     protected string $class;
 
-    /**
-     * @var T|null
-     */
+    /** @var T|null */
     protected ?object $sourceObject = null;
 
     /**
@@ -56,11 +54,11 @@ class Builder
      */
     public function getSourceObject(): object
     {
-        if (!$this->hasSourceObject()) {
+        $sourceObject = $this->sourceObject;
+        if (is_null($sourceObject)) {
             throw new UnexpectedValueException('???');
         }
-        /** @phpstan-ignore return.type */
-        return $this->sourceObject;
+        return $sourceObject;
     }
 
     /**
@@ -85,23 +83,6 @@ class Builder
     }
 
     /**
-     * @return non-empty-string
-     */
-    protected function getCode(): string
-    {
-        $lines = [];
-
-        $class = $this->getClass();
-
-        $lines[] = 'return new class extends ' . $class;
-        $lines[] = '{';
-        $lines[] = 'public function __construct() {}';
-        $lines[] = '};';
-
-        return implode("\n", $lines);
-    }
-
-    /**
      * @return T
      */
     public function create(): object
@@ -114,5 +95,24 @@ class Builder
         }
 
         return $puppet;
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    protected function getCode(): string
+    {
+        $lines = [];
+
+        $class = $this->getClass();
+
+        $lines[] = 'return new class extends ' . $class;
+        $lines[] = '{';
+        $lines[] = 'use ' . RegularCallTrait::class . ';';
+        $lines[] = 'use ' . StaticCallTrait::class . ';';
+        $lines[] = 'public function __construct() {}';
+        $lines[] = '};';
+
+        return implode("\n", $lines);
     }
 }
